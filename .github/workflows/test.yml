@@ -8,5 +8,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: pip install -e '.[dev]'
-      - run: pytest -q
+      - name: Install
+        run: pip install -e '.[dev]'
+      - name: Unit and integration tests
+        run: pytest -q
+      - name: CLI smoke test
+        run: signalforge demo --seed 42 > /tmp/signalforge-demo.json
+      - name: Validate CLI output
+        run: python -c "import json; d=json.load(open('/tmp/signalforge-demo.json')); assert d['fingerprint']['dominant_feature']; assert d['health']['status'] in {'healthy','watch','critical'}"
