@@ -4,13 +4,16 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "signalforge"
-version = "0.1.0"
-description = "Small, explainable ML monitoring toolkit"
+version = "0.2.0"
+description = "Explainable ML monitoring with feature-level drift attribution and shadow-model promotion gates"
 requires-python = ">=3.10"
 dependencies = ["numpy>=1.26"]
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0"]
+
+[project.scripts]
+signalforge = "signalforge.cli:main"
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]
